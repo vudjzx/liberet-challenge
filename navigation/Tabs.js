@@ -116,7 +116,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={icons.like}
+              source={icons.squares}
               resizeMode="contain"
               style={{
                 width: 25,

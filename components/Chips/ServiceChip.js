@@ -53,6 +53,7 @@ const ServiceChip = ({currentCategory, setCurrentCategory}) => {
             </View>
             {categories.map(categorie => (
               <TouchableOpacity
+                key={categorie.idCategory}
                 style={[
                   styles.button,
                   styles.buttonClose,

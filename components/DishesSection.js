@@ -1,24 +1,18 @@
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   ImageBackground,
   Image,
-  StyleSheet,
   FlatList,
   ActivityIndicator,
-  ScrollView,
 } from 'react-native';
 import {COLORS, FONTS, icons, images} from '../constants';
 
 const DishesSection = ({currentCategory, setCurrentCategory}) => {
-  var infoMeal = [];
   const [meals, setMeals] = useState();
   const [loading, setLoading] = useState(false);
   const [mealsInfo, setMealsInfo] = useState([]);
-  const [currentId, setCurrentId] = useState();
-  const [areas, setAreas] = useState([]);
 
   useEffect(() => {
     setMealsInfo([]);
@@ -64,7 +58,6 @@ const DishesSection = ({currentCategory, setCurrentCategory}) => {
   };
 
   const renderDish = meal => {
-    console.log(meal);
     const image = {uri: meal.item.strMealThumb};
     return (
       <View
@@ -211,10 +204,4 @@ const DishesSection = ({currentCategory, setCurrentCategory}) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-});
 export default DishesSection;

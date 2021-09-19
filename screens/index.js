@@ -1,9 +1,3 @@
-import Home from './Home'
-import Restaurant from './Restaurant'
-import OrderDelievery from './OrderDelievery'
+import Home from './Home';
 
-export {
-    Home,
-    Restaurant,
-    OrderDelievery
-}
+export {Home};
