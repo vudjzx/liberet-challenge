@@ -4,7 +4,9 @@ import {
   createBottomTabNavigator,
   BottomTabBar,
 } from '@react-navigation/bottom-tabs';
-import {Home} from '../screens';
+import Home from '../screens/Home';
+import Profile from '../screens/Profile';
+import Cart from '../screens/Cart';
 import {COLORS, icons} from '../constants';
 import Svg, {Path} from 'react-native-svg';
 import {isIphoneX} from 'react-native-iphone-x-helper';
@@ -90,45 +92,26 @@ const Tabs = () => {
       }}
       tabBar={props => <CustomTabBar props={props} />}>
       <Tab.Screen
+        name="Cart"
+        component={Cart}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <Image
+              source={icons.cart}
+              resizeMode="contain"
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? COLORS.primary : COLORS.secondary,
+              }}
+            />
+          ),
+          headerShown: false,
+          tabBarButton: props => <TabBarCustomButton {...props} />,
+        }}
+      />
+      <Tab.Screen
         name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Image
-              source={icons.cutlery}
-              resizeMode="contain"
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: focused ? COLORS.primary : COLORS.secondary,
-              }}
-            />
-          ),
-          headerShown: false,
-          tabBarButton: props => <TabBarCustomButton {...props} />,
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Home}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <Image
-              source={icons.search}
-              resizeMode="contain"
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: focused ? COLORS.primary : COLORS.secondary,
-              }}
-            />
-          ),
-          headerShown: false,
-          tabBarButton: props => <TabBarCustomButton {...props} />,
-        }}
-      />
-      <Tab.Screen
-        name="Like"
         component={Home}
         options={{
           tabBarIcon: ({focused}) => (
@@ -148,7 +131,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="User"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({focused}) => (
             <Image

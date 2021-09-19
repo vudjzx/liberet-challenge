@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,9 +8,14 @@ import {
   Image,
   FlatList,
 } from 'react-native';
+import Header from '../components/Header';
+import Days from '../components/Days';
+import ChipContainer from '../components/Chips/ChipContainer';
 import {icons, images, SIZES, COLORS, FONTS} from '../constants';
+import DishesSection from '../components/DishesSection';
 const Home = ({navigation}) => {
   // test data
+  const [currentCategory, setCurrentCategory] = useState('Beef');
 
   const initialCurrentLocation = {
     streetName: 'Kuching 4032',
@@ -350,56 +355,6 @@ const Home = ({navigation}) => {
     return '';
   }
 
-  const renderHeader = () => {
-    return (
-      <View style={{flexDirection: 'row', height: 50, paddingTop: 10}}>
-        <TouchableOpacity
-          style={{
-            width: 50,
-            paddingLeft: SIZES.padding * 2,
-            justifyContent: 'center',
-          }}>
-          <Image
-            source={icons.nearby}
-            resizeMode="contain"
-            style={{
-              width: 30,
-              height: 30,
-            }}
-          />
-        </TouchableOpacity>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <View
-            style={{
-              width: '70%',
-              height: '100%',
-              backgroundColor: 'transparent',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: SIZES.radius,
-            }}>
-            <Text style={{...FONTS.h3}}>{currentLocation.streetName}</Text>
-          </View>
-        </View>
-        <TouchableOpacity
-          style={{
-            width: 50,
-            paddingRight: SIZES.padding * 2,
-            justifyContent: 'center',
-          }}>
-          <Image
-            source={icons.basket}
-            resizeMode="contain"
-            style={{
-              width: 30,
-              height: 30,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   const renderMainCategories = () => {
     const renderItem = ({item}) => {
       return (
@@ -569,9 +524,18 @@ const Home = ({navigation}) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      {renderHeader()}
-      {renderMainCategories()}
-      {renderRestaurantList()}
+      <Header />
+      <Days />
+      <ChipContainer
+        currentCategory={currentCategory}
+        setCurrentCategory={setCurrentCategory}
+      />
+      <DishesSection
+        currentCategory={currentCategory}
+        setCurrentCategory={setCurrentCategory}
+      />
+      {/* {renderMainCategories()}
+      {renderRestaurantList()} */}
     </SafeAreaView>
   );
 };
