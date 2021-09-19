@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import {icons, COLORS, SIZES, FONTS} from '../constants';
 
 const Header = () => {
@@ -40,9 +47,16 @@ const Header = () => {
             justifyContent: 'center',
             borderRadius: SIZES.radius,
           }}>
-          <Text style={{...FONTS.h3, color: COLORS.darkgray}}>
-            Select location...
-          </Text>
+          <TouchableOpacity
+            onPress={() =>
+              Alert.alert('Locación', 'Selecciona tu locación', [
+                {text: 'Cerrar'},
+              ])
+            }>
+            <Text style={{...FONTS.h3, color: COLORS.darkgray}}>
+              Select location...
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
