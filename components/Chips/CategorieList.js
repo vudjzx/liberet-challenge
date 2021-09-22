@@ -1,17 +1,17 @@
 
-import React from 'react';
+import React, {useContext} from 'react';
 import {
-  Modal,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS, FONTS, icons} from '../../constants';
+import {COLORS} from '../../constants';
+import {AppContext} from '../../context/AppProvider';
+const CategorieList = ({categories, modalVisible, setModalVisible}) => {
 
-const CategorieList = ({categories,modalVisible,setModalVisible,currentCategory,setCurrentCategory}) =>{
-
-  return(
+  const {category} = useContext(AppContext);
+  const [stateCategory, setStateCategory] = category;
+  return (
     categories.map(categorie => (
       <TouchableOpacity
         key={categorie.idCategory}
@@ -21,7 +21,7 @@ const CategorieList = ({categories,modalVisible,setModalVisible,currentCategory,
           {
             marginBottom: 5,
             backgroundColor:
-              currentCategory == categorie.strCategory
+              stateCategory == categorie.strCategory
                 ? COLORS.primary
                 : COLORS.white,
             width: 150,
@@ -29,14 +29,14 @@ const CategorieList = ({categories,modalVisible,setModalVisible,currentCategory,
         ]}
         onPress={() => {
           setModalVisible(!modalVisible);
-          setCurrentCategory(categorie.strCategory);
+          setStateCategory(categorie.strCategory);
         }}>
         <Text
           style={[
             styles.textStyle,
             {
               color:
-                currentCategory == categorie.strCategory
+                stateCategory == categorie.strCategory
                   ? COLORS.white
                   : COLORS.black,
             },
@@ -46,8 +46,8 @@ const CategorieList = ({categories,modalVisible,setModalVisible,currentCategory,
       </TouchableOpacity>
     ))
   )
- 
-  
+
+
 }
 
 const styles = StyleSheet.create({
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: 5,
   },
-   
+
 })
 
 export default CategorieList;

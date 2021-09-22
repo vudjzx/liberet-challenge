@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
-  Alert,
   Modal,
   StyleSheet,
   Text,
-  Pressable,
   View,
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {COLORS, FONTS, icons} from '../../constants';
-
+import {COLORS, icons} from '../../constants';
+import Time from './Time';
+import {AppContext} from '../../context/AppProvider';
 const TimeChip = () => {
-  const [time, setTime] = useState('11:00 am - 12:00 pm');
-  const changeTime = time => {
-    setTime(time);
-  };
+  const {currentTime} = useContext(AppContext);
+  const [time, changeTime] = currentTime;
   const [modalVisible, setModalVisible] = useState(false);
+  const times = ['11:00 am - 12:00 pm', '1:00 pm - 2:00 pm', '2:00 pm - 3:00 pm']
+
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -38,95 +38,16 @@ const TimeChip = () => {
               </Text>
             </View>
             <View>
-              <TouchableOpacity
-                style={[
-                  styles.button,
-                  styles.buttonClose,
-                  {
-                    marginBottom: 5,
-                    backgroundColor:
-                      time == '11:00 am - 12:00 pm'
-                        ? COLORS.primary
-                        : COLORS.white,
-                  },
-                ]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  changeTime('11:00 am - 12:00 pm');
-                }}>
-                <Text
-                  style={[
-                    styles.textStyle,
-                    {
-                      color:
-                        time == '11:00 am - 12:00 pm'
-                          ? COLORS.white
-                          : COLORS.black,
-                    },
-                  ]}>
-                  11:00 am - 12:00 am
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[
-                  styles.button,
-                  styles.buttonClose,
-                  {
-                    marginBottom: 5,
-                    backgroundColor:
-                      time == '1:00 pm - 2:00 pm'
-                        ? COLORS.primary
-                        : COLORS.white,
-                  },
-                ]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  changeTime('1:00 pm - 2:00 pm');
-                }}>
-                <Text
-                  style={[
-                    styles.textStyle,
-                    {
-                      color:
-                        time == '1:00 pm - 2:00 pm'
-                          ? COLORS.white
-                          : COLORS.black,
-                    },
-                  ]}>
-                  1:00 pm - 2:00 pm
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[
-                  styles.button,
-                  styles.buttonClose,
-                  {
-                    marginBottom: 5,
-                    backgroundColor:
-                      time == '2:00 pm - 3:00 pm'
-                        ? COLORS.primary
-                        : COLORS.white,
-                  },
-                ]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  changeTime('2:00 pm - 3:00 pm');
-                }}>
-                <Text
-                  style={[
-                    styles.textStyle,
-                    {
-                      color:
-                        time == '2:00 pm - 3:00 pm'
-                          ? COLORS.white
-                          : COLORS.black,
-                    },
-                  ]}>
-                  2:00 pm - 3:00 pm
-                </Text>
-              </TouchableOpacity>
+              {
+                times.map((element, index) => (
+                  <Time
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    element={element}
+                    key={index}
+                  />
+                ))
+              }
             </View>
           </View>
         </View>
@@ -149,9 +70,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalCenterView:{
-    justifyContent:'center',
-    alignItems:'center',
+  modalCenterView: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(52,52,52, 0.8)',
     height: '100%',
     marginRight: 0,

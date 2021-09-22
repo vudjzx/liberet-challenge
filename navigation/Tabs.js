@@ -81,6 +81,7 @@ const CustomTabBar = props => {
 
 const Tabs = () => {
   return (
+
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,

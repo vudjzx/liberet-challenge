@@ -1,25 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
 import Dish from '../components/Dish';
-
-const DishesSection = ({currentCategory, setCurrentCategory}) => {
-  const [meals, setMeals] = useState();
+import {AppContext} from '../context/AppProvider';
+const DishesSection = () => {
   const [loading, setLoading] = useState(false);
   const [mealsInfo, setMealsInfo] = useState([]);
-
+  const {category} = useContext(AppContext);
+  const [stateCategory, setStateCategory] = category;
+  // get all meal info
   useEffect(() => {
     setMealsInfo([]);
     setLoading(true);
     fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${currentCategory}`,
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${stateCategory}`,
     )
       .then(res => res.json())
       .then(data => {
-        setMeals(data.meals);
         data.meals.map(meal => {
           fetch(
             `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`,
@@ -46,10 +46,10 @@ const DishesSection = ({currentCategory, setCurrentCategory}) => {
         });
       })
       .finally(() => setLoading(false));
-  }, [currentCategory]);
+  }, [stateCategory]);
 
   const renderDish = meal => {
-    return <Dish meal={meal}/>
+    return <Dish meal={meal} />
   };
 
   return loading ? (

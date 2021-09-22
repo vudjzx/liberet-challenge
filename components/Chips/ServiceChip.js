@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   Alert,
   Modal,
@@ -11,14 +11,17 @@ import {
 } from 'react-native';
 import {COLORS, FONTS, icons} from '../../constants';
 import CategorieList from './CategorieList';
-
+import {AppContext} from '../../context/AppProvider';
 const ServiceChip = ({currentCategory, setCurrentCategory}) => {
   // get categories
+
+  const {category} = useContext(AppContext);
+  const [stateCategory, setStateCategory] = category;
   useEffect(() => {
     fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
       .then(res => res.json())
       .then(data => setCategories(data.categories));
-  }),[];
+  }), [];
 
   const [categories, setCategories] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,7 +62,7 @@ const ServiceChip = ({currentCategory, setCurrentCategory}) => {
           style={{width: 25, height: 25, tintColor: COLORS.primary}}
           source={icons.cutlery}
         />
-        <Text style={styles.textStyle}>{currentCategory}</Text>
+        <Text style={styles.textStyle}>{stateCategory}</Text>
       </Pressable>
     </View>
   );
@@ -72,9 +75,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
-  modalCenterView:{
-    justifyContent:'center',
-    alignItems:'center',
+  modalCenterView: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(52,52,52, 0.8)',
     height: '100%',
     marginRight: 0,
