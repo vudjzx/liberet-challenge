@@ -71,6 +71,7 @@ const Header = () => {
           style={{
             width: 30,
             height: 30,
+            tintColor: COLORS.primary,
           }}
         />
       </TouchableOpacity>

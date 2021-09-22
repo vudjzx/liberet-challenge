@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
 import {COLORS, FONTS, icons} from '../../constants';
+import CategorieList from './CategorieList';
 
 const ServiceChip = ({currentCategory, setCurrentCategory}) => {
   // get categories
@@ -18,29 +18,20 @@ const ServiceChip = ({currentCategory, setCurrentCategory}) => {
     fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
       .then(res => res.json())
       .then(data => setCategories(data.categories));
-  });
+  }),[];
 
   const [categories, setCategories] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View
-          style={[
-            styles.centeredView,
-            {
-              backgroundColor: 'rgba(52,52,52, 0.8)',
-              height: '100%',
-              marginRight: 0,
-              marginLeft: 0,
-            },
-          ]}>
+        <View style={styles.modalCenterView}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row'}}>
               <Image
@@ -51,39 +42,13 @@ const ServiceChip = ({currentCategory, setCurrentCategory}) => {
                 Elige una categoría
               </Text>
             </View>
-            {categories.map(categorie => (
-              <TouchableOpacity
-                key={categorie.idCategory}
-                style={[
-                  styles.button,
-                  styles.buttonClose,
-                  {
-                    marginBottom: 5,
-                    backgroundColor:
-                      currentCategory == categorie.strCategory
-                        ? COLORS.primary
-                        : COLORS.white,
-                    width: 150,
-                  },
-                ]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  setCurrentCategory(categorie.strCategory);
-                }}>
-                <Text
-                  style={[
-                    styles.textStyle,
-                    {
-                      color:
-                        currentCategory == categorie.strCategory
-                          ? COLORS.white
-                          : COLORS.black,
-                    },
-                  ]}>
-                  {categorie.strCategory}
-                </Text>
-              </TouchableOpacity>
-            ))}
+            <CategorieList
+              categories={categories}
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+              currentCategory={currentCategory}
+              setCurrentCategory={setCurrentCategory}
+            />
           </View>
         </View>
       </Modal>
@@ -106,6 +71,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 5,
     marginRight: 5,
+  },
+  modalCenterView:{
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor: 'rgba(52,52,52, 0.8)',
+    height: '100%',
+    marginRight: 0,
+    marginLeft: 0,
   },
   modalView: {
     margin: 20,

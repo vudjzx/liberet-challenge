@@ -92,7 +92,7 @@ const Tabs = () => {
       }}
       tabBar={props => <CustomTabBar props={props} />}>
       <Tab.Screen
-        name="Cart"
+        name="CartScreen"
         component={Cart}
         options={{
           tabBarIcon: ({focused}) => (
@@ -111,7 +111,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Home"
+        name="HomeScreen"
         component={Home}
         options={{
           tabBarIcon: ({focused}) => (

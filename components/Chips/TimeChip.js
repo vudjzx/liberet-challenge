@@ -20,17 +20,13 @@ const TimeChip = () => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View
-          style={[
-            styles.centeredView,
-            {backgroundColor: 'rgba(52,52,52, 0.8)', height: '100%'},
-          ]}>
+        <View style={styles.modalCenterView}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row'}}>
               <Image
@@ -152,6 +148,14 @@ const styles = StyleSheet.create({
   centeredView: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalCenterView:{
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor: 'rgba(52,52,52, 0.8)',
+    height: '100%',
+    marginRight: 0,
+    marginLeft: 0,
   },
   modalView: {
     margin: 20,
